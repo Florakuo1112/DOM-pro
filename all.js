@@ -139,89 +139,116 @@ let feedBackData = [
 const feedbackScroll = document.querySelector('.feedbackScroll');
 const prevBtn = document.querySelector('.prevBtn');
 const nextBtn = document.querySelector('.nextBtn');
+//用currentIndex方法來判斷現在到陣列的哪一項
+let currentIndex = 0;
 
-let showFeedBackdata = [];
 //初始化
-feedBackInit();
-
+feedBackRender()
 
 nextBtn.addEventListener('click', (e)=>{
-    next()
-    return
+    currentIndex +=1;
+    //因為到倒數第二個陣列元素後,會渲染到最後一個元素,不減2的話會導致undefined
+    if(currentIndex>=feedBackData.length-2){
+        currentIndex = feedBackData.length-2
+    };
+    if(feedBackData.length==1){
+        currentIndex = 0;
+    };
+    console.log(currentIndex);
+    feedBackRender()
 });
 prevBtn.addEventListener('click', (e)=>{
-    prep();
+    currentIndex -=1;
+    if(currentIndex<0){
+        currentIndex = 0;
+    }
+    console.log(currentIndex);
+    feedBackRender()
 });
 //初始化最初畫面,如果有，把第一、二個feedBackData值渲染到畫面
-function feedBackInit(){
-    if(feedBackData[0] !== undefined){
-        showFeedBackdata.push(feedBackData[0]);
-    };
-    if(feedBackData[1] !== undefined){
-        showFeedBackdata.push(feedBackData[1]);
-    };
-    feedbackScroll.innerHTML = showFeedBackdata.map((item)=>`<li style="background-color:brown; display:grid; justify-content:center; padding:40px; margin-left: 30px; margin-right: 30px;">
-    <img src="${item.photo}" alt="" style="border-radius:180px;margin:auto" >
-    <h4 style="text-align:center">${item.title}</h4>
-    <p style="text-align:center">${item.content}</p>
-    </li>`).join('');
-};
-
-function next(){
-    if(feedBackData.length <=2 ){//初始化後會推前兩個feedBackdata到showFeedBackData, 如果只有兩個直接渲染
-        feedBackRender()
-      return;
-    };
-    //當showFeedBackdata資料和feedbackdata一樣多時，不用在push了,不然會造成undefined
-    if(showFeedBackdata.length == feedBackData.length || showFeedBackdata.length ==1){
-        return
-    };
-    //如果showFeedBackdata 的最後一筆和feedbackdata最後一筆一樣,return
-    if(showFeedBackdata[showFeedBackdata.length-1] ==feedBackData[feedBackData.length-1]){
-        console.log("o")
-        return
-    }
-   
-   showFeedBackdata.push(feedBackData[showFeedBackdata.length]);
-   console.log(showFeedBackdata.length);
-   feedBackRender()
-};
-
-function prep(){
- //   console.log(showFeedBackdata.length);
-    if(showFeedBackdata.length>2){
-        showFeedBackdata.pop();
-        feedBackRender();
-    };
-};
-
-//如果showFeedBackData只有一個，只渲染一個; 有兩個，渲染兩個
 function feedBackRender(){
-    if(showFeedBackdata.length <2){
-        feedbackScroll.innerHTML = 
-        `<li style="background-color:brown; display:grid; justify-content:center; padding:40px; margin-left: 30px; margin-right: 30px;">
-       <img src="${showFeedBackdata[showFeedBackdata.length-1].photo}" alt="" style="border-radius:180px;margin:auto" >
-       <h4 style="text-align:center">${showFeedBackdata[showFeedBackdata.length-1].title}</h4>
-       <p style="text-align:center">${showFeedBackdata[showFeedBackdata.length-1].content}</p>
-        </li>`
-    }else{
-        feedbackScroll.innerHTML = 
-        `<li style="background-color:brown; display:grid; justify-content:center; padding:40px; margin-left: 30px; margin-right: 30px;">
-       <img src="${showFeedBackdata[showFeedBackdata.length-2].photo}" alt="" style="border-radius:180px;margin:auto" >
-       <h4 style="text-align:center">${showFeedBackdata[showFeedBackdata.length-2].title}</h4>
-       <p style="text-align:center">${showFeedBackdata[showFeedBackdata.length-2].content}</p>
-        </li>
-        <li style="background-color:brown; display:grid; justify-content:center; padding:40px; margin-left: 30px; margin-right: 30px;">
-        <img src="${showFeedBackdata[showFeedBackdata.length-1].photo}" alt="" style="border-radius:180px;margin:auto" >
-        <h4 style="text-align:center">${showFeedBackdata[showFeedBackdata.length-1].title}</h4>
-        <p style="text-align:center">${showFeedBackdata[showFeedBackdata.length-1].content}</p>
-         </li>`;
-    }
-    
-  
+    feedbackScroll.innerHTML = `<li style="background-color:brown; display:grid; justify-content:center; padding:40px; margin-left: 30px; margin-right: 30px;">
+    <img src="${feedBackData[currentIndex].photo}" alt="" style="border-radius:180px;margin:auto" >
+    <h4 style="text-align:center">${feedBackData[currentIndex].title}</h4>
+    <p style="text-align:center">${feedBackData[currentIndex].content}</p>
+    </li>
+    <li style="background-color:brown; display:grid; justify-content:center; padding:40px; margin-left: 30px; margin-right: 30px;">
+    <img src="${feedBackData[currentIndex+1].photo}" alt="" style="border-radius:180px;margin:auto" >
+    <h4 style="text-align:center">${feedBackData[currentIndex+1].title}</h4>
+    <p style="text-align:center">${feedBackData[currentIndex+1].content}</p>
+    </li>`
 };
 
+function singleRender(){
+    feedbackScroll.innerHTML = `<li style="background-color:brown; display:grid; justify-content:center; padding:40px; margin-left: 30px; margin-right: 30px;">
+    <img src="${feedBackData[currentIndex].photo}" alt="" style="border-radius:180px;margin:auto" >
+    <h4 style="text-align:center">${feedBackData[currentIndex].title}</h4>
+    <p style="text-align:center">${feedBackData[currentIndex].content}</p>
+    </li>`
+}
 
+//最大卡片數量
+const changeQuantity = document.querySelector('.changeQuantity');
+const changeMax = changeQuantity.previousElementSibling;
+
+changeQuantity.addEventListener('click', (e)=>{
+    let changeMaxInput = changeMax.value;
+    console.log(changeMaxInput);
+    if(changeMaxInput<=0){
+        console.log("最大數量需>0")
+        return
+    };
+    if(changeMaxInput == 1){
+        feedBackData.splice(1)
+        currentIndex = 0;
+        singleRender()
+       
+    return
+    };
+
+    if(changeMaxInput<=feedBackData.length){
+       feedBackData.splice(changeMaxInput);
+       console.log(feedBackData)
+       currentIndex = 0;
+       feedBackRender()
+        return
+    };
+    if(changeMaxInput>feedBackData.length){
+        for(let i = feedBackData.length+1; i <= changeMaxInput; i++){
+            feedBackData.push(JSON.parse(`{
+                "photo":"https://picsum.photos/200",
+                "title":"Person #${i}",
+                "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit." 
+            }`))
+        };
+        console.log(feedBackData)
+        currentIndex = 0;
+        feedBackRender()
+        return
+    }
+});
+
+//卡片起始位置
+const changeStart = document.querySelector('.changeStart');
+const startIndex = changeStart.previousElementSibling;
+
+changeStart.addEventListener('click', (e)=>{
+    let startIndexValue = startIndex.value;
+    console.log(startIndexValue);
+    if(startIndexValue<=0 || startIndexValue>feedBackData.length){
+    return
+    }//如果起始位置是陣列資料的最後一項，只要顯示一個
+    else if(startIndexValue == feedBackData.length){
+        currentIndex = startIndexValue-1;
+        singleRender()
+      
+    }
+    else {console.log(startIndexValue);
+        currentIndex = startIndexValue-1;
+        feedBackRender()}
+        
+    
+})
 
 
 
