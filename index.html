@@ -80,13 +80,126 @@
                     </form>
                       </div>
 
-                      <h4>題目五：心理測驗</h4>
-
-
-
-
-
                   </div>
+        
+                  <h4>題目四：步驟表單</h4>
+                  <form>
+                    <!-- 01 -->
+                    <div class="processOne dialog__window">
+                      <h2>步驟一</h2>
+                      <hr>
+                      <label>
+                        電子信箱<br>
+                        <input type="email" placeholder="請輸入電子信箱" required>
+                      </label>
+                      <br>
+                      <label>
+                        密碼<br>
+                        <input class="password" type="password" placeholder="請輸入密碼" required>
+                      </label>
+                      <div>
+                        <br>
+                        <button type="button">下一步</button>
+                      </div>
+                    </div>
+                  
+                    <!-- 02 -->
+                    <div class="processTwo dialog dialog__window">
+                      <h2>步驟二</h2>
+                      <hr>
+                      <label>
+                        地址<br>
+                        <input class="add" type="text" placeholder="請輸入您的地址" required>
+                      </label><br>
+                      <label>
+                        城市<br>
+                        <input class="city" type="text" placeholder="請輸入您的城市" required>
+                      </label>
+                      <div>
+                        <br>
+                        <button class="prepStep" type="button">上一步</button>
+                        <button class="nextStep" type="button">下一步</button>
+                      </div>
+                    </div>
+                  
+                    <!-- 03 -->
+                    <div class="processThree dialog dialog__window" >
+                      <h2>步驟三</h2>
+                      <hr>
+                      <label>
+                        名稱<br>
+                        <input class="name" type="text" placeholder="請輸入您的名稱" required>
+                      </label><br>
+                      <label>
+                        電話<br>
+                        <input class="phone" type="phone" placeholder="請輸入您的電話" required>
+                      </label>
+                      <div>
+                        <br>
+                        <button type="button" data-prev>上一步</button>
+                        <button type="button" data-next>下一步</button>
+                      </div>
+                  
+                    </div>
+                  </form>
+
+                  <h4>題目五:心理測驗</h4>
+
+    <!-- Intro -->
+<div class="psychoTest">
+    <h1>網頁性格測驗</h1>
+    <button>開始測驗～</button>
+</div>
+  
+  <!-- Test -->
+   <!-- 彈跳視窗 1/4-->
+     <div role="dialog" aria-labelledby="dialog_title" class="dialog testOne " >
+      <div class="dialog__window ">
+       <h2>網頁性格測驗</h2>
+       <p>製作網頁是一個多種領域發揮的舞台，助教製作了一款簡易的網頁性格測驗，來測試看看同學們對網頁不同領域的喜好程度～</p>
+       <button>開始測驗</button>
+      </div>
+      </div>
+    
+   <!-- 彈跳視窗 2/4-->
+   <div role="dialog" aria-labelledby="dialog_title" class="dialog testTwo" >
+    <div class="dialog__window ">
+     <h2>你喜歡研究使用者與市場嗎？</h2>
+     1/3
+     <input type="radio" name="" id="" class="yes">喜歡討論和發想整個網站的過程
+     <input type="radio" name="" id="" class="no">比起發想網站架構與研究客群，專心打cod對我來說比較適合
+    </div>
+    </div>
+   <!-- 彈跳視窗3/4 -->
+   <div role="dialog" aria-labelledby="dialog_title" class="dialog testThree" >
+    <div class="dialog__window ">
+     <h2>你喜歡架構整個網站的雛形嗎？</h2>
+     2/3
+     <input type="radio" name="" id="" class="yes"> 對啊,能用手刻網頁就手刻
+     <input type="radio" name="" id="" class="no">不要，都複製現有的模板，不想浪費時間
+    </div>
+    </div>
+   <!-- 彈跳視窗4/4 -->
+   <div role="dialog" aria-labelledby="dialog_title" class="dialog testFour" >
+    <div class="dialog__window ">
+     <h2>你喜歡花很多時間打磨網站外表嗎？</h2>
+     3/3
+     <input type="radio" name="" id="" class="yes"> 對啊
+     <input type="radio" name="" id="" class="no">不要，都複製現有的模板，不想浪費時間
+    </div>
+    </div>
+
+  
+  <!-- Result -->
+  <div role="dialog" aria-labelledby="dialog_title" class="dialog result" >
+    <!-- <div class="dialog__window ">
+     <h2></h2>
+     <p>
+         coding奇才
+     </p>
+     <button class="close">關閉</button>
+    </div> -->
+    </div>
                   
 
   

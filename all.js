@@ -33,7 +33,7 @@ body.addEventListener('click', (e)=>{
     if(e.target.getAttribute("class") !== "dialog dialog--active" ){
         return
     }else{
-        console.log("有按到");
+      // console.log("有按到");
         popUp.setAttribute("class", "dialog");
         document.body.style.overflow = "" 
         openBtn.focus()
@@ -248,9 +248,196 @@ changeStart.addEventListener('click', (e)=>{
         feedBackRender()}
         
     
+});
+
+//題目四
+//dom
+//步驟一
+const processOne = document.querySelector('.processOne');
+const email = processOne.querySelector('input');
+const password = processOne.querySelector('.password')
+const processOneInput = processOne.querySelectorAll('input');
+//步驟二
+const processTwo = document.querySelector('.processTwo');
+const add = document.querySelector('.add');
+const city = document.querySelector('.city')
+//步驟三
+const processThree = document.querySelector('.processThree');
+const name = document.querySelector('.name');
+const phone = document.querySelector('.phone');
+
+let userData = {};
+
+processOne.addEventListener('click', (e)=>{
+    if(e.target.nodeName !== "BUTTON" ){
+        return ///console.log("沒按到")
+     };
+     if(password.value == "" ){
+        password.focus()
+        return console.log("沒填寫密碼")
+     };
+     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     if(emailPattern.test(email.value)){
+        userData.email = email.value;
+        userData.password = password.value;
+        console.log(userData);
+        processOne.classList.add('dialog');
+        processTwo.classList.remove('dialog')
+     }else{
+         email.focus();
+         console.log("不是有效的email")
+     }
+});
+
+processTwo.addEventListener('click',(e)=>{
+    if(e.target.nodeName !== "BUTTON"){
+        return
+    };
+    if(e.target.nodeName == "BUTTON" && e.target.innerText == "上一步"){
+        console.log("上一步");
+        processOne.classList.remove('dialog');
+        processTwo.classList.add('dialog')
+        return
+    };
+    if(e.target.nodeName == "BUTTON" && e.target.innerText == "下一步"){
+        if(add.value == ""){
+            add.focus();
+            return console.log("沒寫地址")
+        };
+        if(city.value ==""){
+            city.focus();
+            return console.log("沒寫城市")
+        };
+        const pattern = 
+        userData.add = add.value;
+        userData.city = city.value;
+        console.log(userData);
+        console.log("下一步");
+        processTwo.classList.add('dialog');
+        processThree.classList.remove('dialog')
+    };
+  
+
+} );
+
+processThree.addEventListener('click',(e)=>{
+    if(e.target.nodeName !== "BUTTON"){
+        return
+    };
+    if(e.target.nodeName == "BUTTON" && e.target.innerText == "上一步"){
+        console.log("上一步");
+        processTwo.classList.remove('dialog');
+        processThree.classList.add('dialog')
+        return
+    };
+    if(e.target.nodeName == "BUTTON" && e.target.innerText == "下一步"){
+        if(name.value == "" ){
+            name.focus()
+            return console.log("沒寫名字")
+        };
+        if(phone.value ==""){
+            phone.focus()
+            return console.log("沒寫電話")
+        };
+        userData.name = name.value;
+        userData.phone = phone.value;
+        console.log("下一步");
+        console.log(userData);
+        processThree.classList.add('dialog')
+    };
+  
+
+} );
+
+//題目五：心理測驗
+const psychoTest = document.querySelector('.psychoTest');
+const testOne = document.querySelector('.testOne')
+const testTwo = document.querySelector('.testTwo')
+const testThree = document.querySelector('.testThree')
+const testFour = document.querySelector('.testFour')
+const result = document.querySelector('.result')
+
+let score = 0;
+
+psychoTest.addEventListener('click', (e)=>{
+    if(e.target.nodeName !== "BUTTON"){
+        return console.log('沒按到')
+    };
+    psychoTest.nextElementSibling.classList.add('dialog--active');
+    document.body.style.overflow = "hidden" // 避免使用者在打開視窗的狀況下頁面是可滑動的
 })
 
+testOne.addEventListener('click', (e)=>{
+    if(e.target.nodeName !== "BUTTON"){
+        return
+    };
+    testOne.classList.remove('dialog--active');
+    testTwo.classList.add('dialog--active')
 
+});
 
+testTwo.addEventListener('click', (e)=>{
+    if(e.target.nodeName !== "INPUT"){
+        return console.log("沒按到")
+    };
+    console.log(e.target.getAttribute('class'));
+    if(e.target.getAttribute('class')=="yes"){
+        score +=2.5;
+    };
+    testTwo.classList.remove('dialog--active');
+    testThree.classList.add('dialog--active')
+});
 
+testThree.addEventListener('click', (e)=>{
+    if(e.target.nodeName !== "INPUT"){
+        return console.log("沒按到")
+    };
+    console.log(e.target.getAttribute('class'));
+    if(e.target.getAttribute('class')=="yes"){
+        score +=2.5;
+    };
+    testThree.classList.remove('dialog--active');
+    testFour.classList.add('dialog--active')
+});
 
+testFour.addEventListener('click', (e)=>{
+    if(e.target.nodeName !== "INPUT"){
+        return console.log("沒按到")
+    };
+    console.log(e.target.getAttribute('class'));
+    if(e.target.getAttribute('class')=="yes"){
+        score +=2.5;
+    };
+    testFour.classList.remove('dialog--active');
+    result.classList.add('dialog--active')
+    if(score >=5){
+        result.innerHTML = `
+        <div class="dialog__window ">
+        <h2>恭喜你！</h2>
+        <p>
+            你是coding奇才
+        </p>
+        <button class="close">關閉</button>
+        </div>
+        `
+        score = 0;
+        return
+    }else{
+        result.innerHTML = `
+    <div class="dialog__window ">
+    <h2>OOPS</h2>
+    <p>
+        厭世的工程師
+    </p>
+    <button class="close">關閉</button>
+    </div>  
+    `
+    score = 0;}
+});
+
+result.addEventListener('click', (e)=>{
+    if(e.target.nodeName !== "BUTTON"){
+        return
+    }
+    result.classList.remove('dialog--active')
+});
